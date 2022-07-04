@@ -12,7 +12,7 @@ public interface WsMessageProtocolHandler extends WsMessageHandler {
         try {
             handle(wsMessageContext);
         } catch (ProtocolException e) {
-            wsMessageContext.send("ProtocolException %d".formatted(e.getCode()));
+            wsMessageContext.send(String.format("ProtocolException %d", e.getCode()));
         }
     }
 
