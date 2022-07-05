@@ -92,20 +92,20 @@ public class Server {
             device.setPublicKey(formValidator.getPublicKey());
             // TODO: terminate sessions
         });
-        app.ws("/live", ws -> {
-            ws.onMessage((WsMessageProtocolHandler) ctx -> {
-                JSONValidator jsonValidator = JSONValidator.getInstance(ctx.message());
-                Device device = getDeviceWithPublicKey(jsonValidator);
-                Instant timeInstant = jsonValidator.getTimeInstant();
-                liveServer.subscribe(ctx, device.getDeviceSerial());
-                ArrayList<SensorData> sensorData = InfluxManager.getData(device.getDeviceSerial(), timeInstant);
-                ctx.send(new Gson().toJson(sensorData));
-            });
-            ws.onError(ctx -> {
-            });
-            ws.onClose(ctx -> {
-            });
-        });
+//        app.ws("/live", ws -> {
+//            ws.onMessage((WsMessageProtocolHandler) ctx -> {
+//                JSONValidator jsonValidator = JSONValidator.getInstance(ctx.message());
+//                Device device = getDeviceWithPublicKey(jsonValidator);
+//                Instant timeInstant = jsonValidator.getTimeInstant();
+//                liveServer.subscribe(ctx, device.getDeviceSerial());
+//                ArrayList<SensorData> sensorData = InfluxManager.getData(device.getDeviceSerial(), timeInstant);
+//                ctx.send(new Gson().toJson(sensorData));
+//            });
+//            ws.onError(ctx -> {
+//            });
+//            ws.onClose(ctx -> {
+//            });
+//        });
         app.exception(ProtocolException.class, ((e, ctx) -> ctx.result(e.getStringCode()).status(e.getStatus())));
     }
 }
