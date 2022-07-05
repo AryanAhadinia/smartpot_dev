@@ -1,3 +1,5 @@
+package main;
+
 import db.sql.PostgresConnection;
 import db.sql.PostgresManager;
 import db.timeseries.InfluxClient;
